@@ -1,4 +1,4 @@
-import { createStore } from "redux";
+import { bindActionCreators, createStore } from "redux";
 
 const ADD_TODO = 'add_todo';
 const DEL_TODO = 'delete_todo';
@@ -40,11 +40,13 @@ const { dispatch, subscribe, getState, replaceReducer } = createStore(todoReduce
 
 subscribe(() => console.log(getState())); //whenever the state is changed it print the current state
 
-dispatch(addTodo('Todo 1'));
+const actions = bindActionCreators({addTodo, deleteTodo}, dispatch)
 
-dispatch(addTodo('Todo 2'));
+actions.addTodo('Todo 1');
 
-dispatch(deleteTodo(1));
+actions.addTodo('Todo 2');
+
+actions.deleteTodo(1);
 
 
 
