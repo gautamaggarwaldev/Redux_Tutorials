@@ -31,20 +31,21 @@ function todoReducer(state, action) {
     return state;
 }
 
+// action objects --> action methods (action creater)
 
+const addTodo = (todoText) => ({type: ADD_TODO, payload: {todoText}});
+const deleteTodo = (id) => ({type: DEL_TODO, payload: {todoId: id}});
 
 const { dispatch, subscribe, getState, replaceReducer } = createStore(todoReducer, []);
 
 subscribe(() => console.log(getState())); //whenever the state is changed it print the current state
 
-dispatch({ type: ADD_TODO, payload: { todoText: 'todo 1' } })
-// console.log(getState());
+dispatch(addTodo('Todo 1'));
 
-dispatch({ type: ADD_TODO, payload: { todoText: 'todo 2' } })
-// console.log(getState());
+dispatch(addTodo('Todo 2'));
 
-dispatch({ type: DEL_TODO, payload: { todoId: 1 } })
-// console.log(getState());
+dispatch(deleteTodo(1));
+
 
 
 // const response = createStore(todoReducer, []);
