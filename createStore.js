@@ -3,6 +3,7 @@ import { bindActionCreators, createStore } from "redux";
 const ADD_TODO = 'add_todo';
 const DEL_TODO = 'delete_todo';
 const UPD_TODO = 'edit_todo';
+const ADD_USER = 'add_user';
 
 function todoReducer(state, action) {
     if (action.type == ADD_TODO) {
@@ -31,6 +32,16 @@ function todoReducer(state, action) {
     return state;
 }
 
+function userReducer(state, action) {
+    if(action.type == ADD_USER) {
+        const userName = action.payload.userName;
+        return [
+            ...state,
+            { name: userName, id: (state.length == 0) ? 1 : state[state.length - 1].id + 1 }
+        ]
+    }
+}
+
 // action objects --> action methods (action creater)
 
 const addTodo = (todoText) => ({type: ADD_TODO, payload: {todoText}});
@@ -43,10 +54,12 @@ subscribe(() => console.log(getState())); //whenever the state is changed it pri
 const actions = bindActionCreators({addTodo, deleteTodo}, dispatch)
 
 actions.addTodo('Todo 1');
+//dispatch(addTodo('Todo 1'))
 
 actions.addTodo('Todo 2');
 
 actions.deleteTodo(1);
+//dispatch(deleteTodo(1))
 
 
 
